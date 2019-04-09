@@ -32,30 +32,30 @@
         </li>   
 
 			 <li class="active">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Sub Katgeori</span>
+          <a href="{{url('sub_cat')}}">
+            <i class="fa fa-dashboard"></i> <span>Sub Kategori</span>
 
           </a>
           
         </li> 
 		
-		<li class="active treeview">
-          <a href="#">
+		<li class="active">
+          <a href="{{url('product')}}">
             <i class="fa fa-dashboard"></i> <span>Produk</span>
             
           </a>
           
         </li>
 		
-		<li class="active treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Transaksi</span>
+		<li class="active">
+          <a href="{{url('transation')}}">
+            <i class="fa fa-dashboard"></i> <span>Rekap Transaksi</span>
             
           </a>
         </li>
 		
-		<li class="active treeview">
-          <a href="#">
+		<li class="active">
+          <a href="{{url('reviews')}}">
             <i class="fa fa-dashboard"></i> <span>Review</span>
             
           </a>

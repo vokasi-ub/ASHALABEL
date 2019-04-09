@@ -28,7 +28,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{url('product')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -43,7 +43,7 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{url('transation')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -58,7 +58,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{url('reviews')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -68,12 +68,12 @@
             <div class="inner">
               <h3>100<sup style="font-size: 20px">%</sup></h3>
 
-              <p>Home</p>
+              <p>Kategori</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="{{url('category')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
