@@ -15,7 +15,8 @@ class CreateSubKategoriTable extends Migration
     {
         Schema::create('sub_kategori', function (Blueprint $table) {
             $table->bigIncrements('idSub');
-            $table->string('idKategori',30);
+            $table->unsignedBigInteger('idKategori');
+            $table->foreign('idKategori')->references('idKategori')->on('kategori')->onDelete('cascade');
             $table->string('namaSub');
         });
     }
@@ -28,5 +29,6 @@ class CreateSubKategoriTable extends Migration
     public function down()
     {
         Schema::dropIfExists('sub_kategori');
+        $table->dropForeign('idKategori');
     }
 }

@@ -22,9 +22,55 @@
             <div class="box-header">
               <h3 class="box-title">Data Sub Kategori Produk</h3>
               <hr>
-              <a href="{{url('tambahSub')}}"><button class="btn btn-primary"><i class="fa fa-plus"></i> Add data </button></a>
-            
-            </div
+              <button class="btn btn-primary" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-plus"></i> Add data </button>
+           
+		   </div>
+			<div class="modal modal-default fade" id="modal-danger">
+				  <div class="modal-dialog">
+					<div class="modal-content">
+					<form action="{{url('tambahkategori')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+					  <div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						  <span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Add Data</h4>
+					  </div>
+					  <div class="modal-body">
+						   {{ csrf_field() }}
+							<div class="box-header with-border">
+							  <h3 class="box-title"><i class="fa fa-tags"></i> Form add data kategori</h3>
+							  <div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
+										title="Collapse">
+								  <i class="fa fa-minus"></i></button>
+							  </div>
+							</div>
+							<div class="box-body">
+				<div class="input-group">
+                <span class="input-group-addon"><i class="fa fa-tags"></i> Nama Sub Kategori </span>
+                <input title="Nama Sub"type="text" name="namaSub" autocomplete="off" required class="form-control">
+				</div><br>
+				
+				<select name="idKategori" id='idKategori' class="form-control"> 
+												<option value="">- Select Kategori</option>
+												@foreach ($sub_cat as $Akategori)
+												<option value="{{$Akategori->idKategori}}" />{{$Akategori->namaKategori}}
+											    @endforeach
+				</select>
+				
+		</div>
+					  </div>
+					  <div class="modal-footer">
+						<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Close</button>
+						<button type="submit" class="btn btn-danger">Save changes</button>
+					  </div>
+					  </form>
+					</div>
+					<!-- /.modal-content -->
+				  </div>
+				  <!-- /.modal-dialog -->
+				</div>
+			
+			
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
@@ -42,7 +88,7 @@
                 @foreach($sub_cat as $Asub)
                 <tr>
                 <td>{{$no++}}</td>
-                <td>{{$Asub->namaKategori}}</td>
+                <td>{{$Asub->kategori->namaKategori}}</td>
                 <td>{{$Asub->namaSub}}</td>
                 <td><a href="editSub/{{$Asub->idSub}}">
                       <i class="fa fa-edit"></i> Edit</a> 

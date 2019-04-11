@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\produk;
+use App\kategori;
+use App\sub_cat;
+
 use Illuminate\Support\Facades\DB;
 
 class produkController extends Controller
@@ -15,27 +18,27 @@ class produkController extends Controller
      */
     public function index(Request $request)
     {
-	   
-	   //mendenifisikan kata kuci
+	   //mendenifisikan kata kunci
        $cari = $request->cari;
        //mencari data di database
        
        //return data ke view
-	   $product = DB::select('select a.namaSub, b.* from sub_kategori a join produk b on a.idSub = b.idSub');
-       return view('product.index',['produk' => $product]);
+       $product = produk::all();
+       return view('product.index',compact('product'));
     }
 
     public function addform()
 	{
-		$sub_kategori = DB::SELECT('SELECT * From sub_kategori');
+		$sub_kategori = sub_cat::all();
 		return view('product.addform', compact('sub_kategori'));
     }
 	
     public function editform($id)
 	{
-        $data = DB::table('produk')->where('idProduk',$id)->get();
-		$sub_kategori = DB::SELECT('SELECT * From sub_kategori');
-		return view('product.editform', compact('data'));
+        $data = produk::where('idProduk',$id)->get();
+        $sub_cat = sub_cat::all();
+       
+        return view('product.editform', compact('data','sub_cat'));
     }
     /**
      * Show the form for creating a new resource.
@@ -55,18 +58,19 @@ class produkController extends Controller
      */
     public function store(Request $request)
     {
-		$file       = $request->file('foto');
+        
+        $file       = $request->file('foto');
         $fileName   = $file->getClientOriginalName();
         $request->file('foto')->move("image/", $fileName);
-		
-        DB::table('produk')->insert([
-            'idSub' => $request->idSub,  
-            'nama' => $request->nama,  
-            'deskripsi' => $request->deskripsi,  
-            'stok' => $request->stok,  
-            'harga' => $request->harga,  
-            'gambar' => $fileName  
-          ]);
+
+        $data = new produk();
+        $data->idSub = $request->idSub;
+        $data->nama = $request->nama;
+        $data->deskripsi = $request->deskripsi;
+        $data->stok = $request->stok;
+        $data->harga = $request->harga;
+        $data->gambar = $fileName;
+        $data->save();
 
          return redirect('product');
     }
@@ -100,16 +104,28 @@ class produkController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('produk')->where('idProduk',$id)->update([
-            'idSub' => $request->idSub,
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'stok' => $request->stok,
-            'harga' => $request->harga,
-            'gambar' => $request->gambar,
-           
-               ]);		
-            return redirect('product');
+        $data = produk::find($id);
+        $data->idSub = $request->idSub;
+        $data->nama = $request->nama;
+        $data->deskripsi = $request->deskripsi;
+        $data->stok = $request->stok;
+        $data->harga = $request->harga;
+        $data->save();
+
+        return redirect('product');
+    }
+	
+	  public function updateImg(Request $request, $id)
+    {
+		$file       = $request->file('foto');
+        $fileName   = $file->getClientOriginalName();
+        $request->file('foto')->move("image/", $fileName);
+		
+        $data = produk::find($id);
+        $data->gambar = $fileName;
+        $data->save();
+
+        return redirect('product');
     }
 
     /**
@@ -120,7 +136,9 @@ class produkController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('produk')->where('idProduk',$id)->delete();
+        $data = produk::find($id);
+        $data->delete();
+
 		return redirect('product');
     }
 }

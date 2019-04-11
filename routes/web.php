@@ -38,9 +38,9 @@ Route::post('tambahdataProduk','produkController@store');
 Route::get('hapusProduk/{id}','produkController@destroy');
 Route::get('editProduk/{id}','produkController@editform');
 Route::post('updateProduk/{id}','produkController@update');
+Route::post('updateProdukImg/{id}','produkController@updateImg');
 
 Route::resource('transation','transaksiController');
-Route::get('tambahTrans','transaksiController@addform');
 Route::post('tambahdataTrans','transaksiController@store');
 Route::get('hapusTrans/{id}','transaksiController@destroy');
 Route::get('editTrans/{id}','transaksiController@editform');
@@ -48,11 +48,11 @@ Route::post('updateTrans/{id}','transaksiController@update');
 Route::get('nota/{id}','transaksiController@nota');
 
 Route::resource('reviews','reviewController');
-Route::get('tambahReview','reviewController@addform');
-Route::post('tambahdataReview','reviewController@store');
 Route::get('hapusReview/{id}','reviewController@destroy');
 Route::get('editReview/{id}','reviewController@editform');
 Route::post('updateReview/{id}','reviewController@update');
+
+Route::post('tambahReviewProduk','reviewController@store');
 
 
 Route::get('dashboard', function () {

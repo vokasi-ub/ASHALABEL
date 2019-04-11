@@ -17,7 +17,7 @@
 		
 		<li class="active">
           <a href="{{url('dashboard')}}">
-            <i class="fa fa-dashboard"></i> <span>HOME</span>
+            <i class="fa fa-home"></i> <span>HOME</span>
            
           </a>
           

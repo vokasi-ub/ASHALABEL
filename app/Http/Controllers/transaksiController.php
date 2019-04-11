@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\transaksi;
+use App\produk;
 use Illuminate\Support\Facades\DB;
 
 class transaksiController extends Controller
@@ -15,23 +16,21 @@ class transaksiController extends Controller
      */
     public function index(Request $request)
     {
-       //mendenifisikan kata kuci
+       //mendenifisikan kata kunci
        $cari = $request->cari;
        //mencari data di database
-       $trans = DB::table('transaksi')
-       ->where('nama','like',"%".$cari."%")
-       ->paginate();
+      
        //return data ke view
+       $trans = transaksi::all();
        return view('transation.index',['transaksi' => $trans]);
-    }
-
-    public function addform(){
-        return view('frontend.main-detail');
     }
 	
     public function editform($id){
-        $data = DB::table('transaksi')->where('idTransaksi',$id)->get();
-		return view('transation.editform', compact('data'));
+
+        $data = transaksi::where('idTransaksi',$id)->get();
+        $product = produk::all();
+
+		return view('transation.editform', compact('data','product'));
     }
     /**
      * Show the form for creating a new resource.
@@ -51,15 +50,25 @@ class transaksiController extends Controller
      */
     public function store(Request $request)
     {
-		$id = $request->idTransaksi;
-        DB::table('transaksi')->insert([
-			'idTransaksi'=>$request->idTransaksi,
-            'idProduk' => $request->idProduk,  
-            'nama' => $request->nama,  
-            'alamat' => $request->alamat,  
-            'jumlah' => $request->jumlah,  
-            'total_harga' => $request->total,  
-          ]);
+        $id = $request->idTransaksi;
+        $idProduk = $request->idProduk;
+		$stok = $request->stok;
+		$jumlah = $request->jumlah;
+		
+        $data = new transaksi();
+        $data->idTransaksi = $request->idTransaksi;
+        $data->idProduk = $request->idProduk;
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->jumlah = $request->jumlah;
+        $data->total_harga = $request->total;
+        $data->save();
+		
+		
+		$dataProduct = produk::find($idProduk);
+        $dataProduct->stok = $stok - $jumlah;
+		$dataProduct->save();
+		
          return redirect('nota/'.$id);
     }
 
@@ -92,14 +101,16 @@ class transaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('transaksi')->where('idTransaksi',$id)->update([
-            'idProduk' => $request->idProduk,  
-            'nama' => $request->nama,  
-            'alamat' => $request->alamat,  
-            'tanggal' => $request->tanggal,  
-            'jumlah' => $request->jumlah,  
-            'total_harga' => $request->total_harga,
-               ]);		
+        $data = transaksi::find($id);
+        $data->idTransaksi = $request->idTransaksi;
+        $data->idProduk = $request->idProduk;
+        $data->nama = $request->nama;
+        $data->alamat = $request->alamat;
+        $data->jumlah = $request->jumlah;
+        $data->total_harga = $request->total;
+        $data->save();
+        
+       	
             return redirect('transation');
     }
 
@@ -111,13 +122,14 @@ class transaksiController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('transaksi')->where('idTransaksi',$id)->delete();
+        $data = transaksi::find($id);
+        $data->delete();
 		return redirect('transation');
     }
 	
 	public function nota($id) {
 		
-		$data = DB::select('select a.*,b.* from transaksi a join produk b 
+		$data = DB::select('select a.*,a.nama as pelanggan,b.* from transaksi a join produk b 
 							on a.idProduk= b.idProduk where a.idTransaksi=?',[$id]);
 		return view('frontend.nota', compact('data'));
 	}

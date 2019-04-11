@@ -18,18 +18,17 @@ class kategoriController extends Controller
        //mendenifisikan kata kuci
        $cari = $request->cari;
        //mencari data di database
-       $kategori = DB::table('kategori')
-       ->where('namaKategori','like',"%".$cari."%")
-       ->paginate();
+       
        //return data ke view
-       return view('category.index',['kategori' => $kategori]);
+       $kategori = kategori::all();
+       return view('category.index', compact('kategori'));
     }
 
     public function addform(){
         return view('category.addform');
     }
     public function editform($id){
-        $data = DB::table('kategori')->where('idKategori',$id)->get();
+        $data = kategori::where('idKategori',$id)->get();
 		return view('category.editform', compact('data'));
     }
     /**
@@ -50,11 +49,10 @@ class kategoriController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('kategori')->insert([
-            'namaKategori' => $request->namaKategori,
-            
-          ]);
-
+        $data = new kategori();
+        $data->namaKategori = $request->namaKategori;
+        $data->save();
+         
          return redirect('category');
     }
 
@@ -87,9 +85,9 @@ class kategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('kategori')->where('idKategori',$id)->update([
-            'namaKategori' => $request->namaKategori,
-               ]);		
+        $data = kategori::find($id);
+        $data->namaKategori = $request->namaKategori;
+        $data->save();	
             return redirect('category');
     }
 
@@ -101,7 +99,9 @@ class kategoriController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('kategori')->where('idKategori',$id)->delete();
+        $data = kategori::find($id);
+        $data->delete();
+
 		return redirect('category');
     }
 }

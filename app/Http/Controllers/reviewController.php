@@ -29,8 +29,9 @@ class reviewController extends Controller
         return view('reviews.addform');
     }
     public function editform($id){
+		$sts = review::all();
         $data = DB::table('review')->where('idReview',$id)->get();
-		return view('reviews.editform', compact('data'));
+		return view('reviews.editform', compact('data','sts'));
     }
     /**
      * Show the form for creating a new resource.
@@ -50,16 +51,17 @@ class reviewController extends Controller
      */
     public function store(Request $request)
     {
+		$id = $request->idProduk;
+		
         DB::table('review')->insert([
+			'idProduk'=>$request->idProduk,
             'nama' => $request->nama,
 			'email' => $request->email,
 			'review' => $request->review,
-			'status' => $request->status,
-			'tanggal' => $request->tanggal,
-            
+			'status' => 'pending'
           ]);
-
-         return redirect('reviews');
+		  
+         return redirect('main-detail/'.$id);
     }
 
     /**
@@ -94,11 +96,7 @@ class reviewController extends Controller
     public function update(Request $request, $id)
     {
         DB::table('review')->where('idReview',$id)->update([
-            'nama' => $request->nama,
-			'email' => $request->email,
-			'review' => $request->review,
-			'status' => $request->status,
-			'tanggal' => $request->tanggal,
+			'status' => $request->status
                ]);		
             return redirect('reviews');
     }

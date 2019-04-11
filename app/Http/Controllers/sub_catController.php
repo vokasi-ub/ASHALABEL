@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use App\sub_cat;
+use App\kategori;
 use Illuminate\Support\Facades\DB;
+
 
 class sub_catController extends Controller
 {
@@ -20,18 +22,19 @@ class sub_catController extends Controller
        //mencari data di database
        
        //return data ke view
-	   $sub_cat = DB::select('select a.namaKategori, b.* from kategori a join sub_kategori b on a.idKategori = b.idKategori');
+	   $sub_cat = sub_cat::all();
        return view('sub_cat.index', compact('sub_cat'));
     }
 
     public function addform()
 	{
-		$kategori = DB::SELECT('SELECT * From kategori');
-        return view('sub_cat.addform', compact('kategori'));
+		return view('sub_cat.addform');
     }
     public function editform($id){
-        $sub_cat = DB::table('sub_kategori')->where('idSub',$id)->get();
-		$kategori = DB::SELECT('SELECT * From kategori');
+
+        $sub_cat = sub_cat::where('idSub',$id)->get();
+        $kategori = kategori::all();
+		
 		return view('sub_cat.editform', compact('sub_cat','kategori'));
     }
     /**
@@ -52,10 +55,17 @@ class sub_catController extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('sub_kategori')->insert([
+        $data = new sub_cat();
+        $data->idKategori = $request->idKategori;
+        $data->namaSub = $request->namaSub;
+        $data->save();
+         
+      /*  DB::table('sub_kategori')->insert([
             'idKategori' => $request->idKategori,
             'namaSub' => $request->namaSub
           ]);
+          
+          */
 
          return redirect('sub_cat');
     }
@@ -91,10 +101,10 @@ class sub_catController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('sub_kategori')->where('idSub',$id)->update([
-            'namaSub' => $request->namaSub,
-               ]);		
-            return redirect('sub_cat');
+        $data = sub_cat::find($id);
+        $data->namaSub = $request->namaSub;
+        $data->save();
+        return redirect('sub_cat');
     }
 
     /**
@@ -105,7 +115,8 @@ class sub_catController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('sub_kategori')->where('idSub',$id)->delete();
+        $data = sub_cat::find($id);
+        $data->delete();
 		return redirect('sub_cat');
     }
 }

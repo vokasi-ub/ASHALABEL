@@ -128,9 +128,9 @@
 						<!-- - -->
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
 							<div class="how-pos2 p-lr-15-md">
-								<form action="{{url('tambahdataTrans')}}" class="form-horizontal" method="post" enctype="multipart/form-data">
+								<form action="{{url('tambahdataTrans')}}" class="w-full" method="post" enctype="multipart/form-data">
 								{{ csrf_field() }}
-								<form class="w-full">
+							
 											<h5 class="mtext-108 cl2 p-b-7">
 												Order
 											</h5>
@@ -143,9 +143,9 @@
 												
 												</div>
 												<div class="col-sm-6 p-b-5">
-													<label class="stext-102 cl3" for="name">ID Product</label>
 													
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="idProduk" readonly value="{{$q->idProduk}}">
+													
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="hidden" name="idProduk" readonly value="{{$q->idProduk}}">
 												
 												</div>
 											
@@ -182,8 +182,8 @@
 												
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="jumlah">Jumlah</label>
-												
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" onchange="cal()" id="jumlah" name="jumlah" type="number" min="1" required>
+													<input type="hidden" name="stok" value="{{$q->stok}}">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" onchange="cal()" id="jumlah" name="jumlah" type="number" min="1" max="{{$q->stok}}" required>
 												</div>
 												
 												<div class="col-sm-6 p-b-5">
@@ -193,12 +193,12 @@
 												
 												</div>
 												
-												<script type="text/javascript">
+											<script type="text/javascript">
 												function cal(){
 												if(document.getElementById("jumlah")){
 													document.getElementById("total").value=<?php echo $q->harga?>*document.getElementById("jumlah").value;
 												}}
-												</script>
+											</script>
 											@endforeach
 											</div>
 
@@ -218,33 +218,26 @@
 									<div class="p-b-30 m-lr-15-sm">
 										<!-- Review -->
 										<div class="flex-w flex-t p-b-68">
-											<div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
-												<img src="images/avatar-01.jpg" alt="AVATAR">
-											</div>
-
+											@foreach($review as $r)
+											<br><br>
 											<div class="size-207">
+											{{ $r->tanggal }}
 												<div class="flex-w flex-sb-m p-b-17">
 													<span class="mtext-107 cl2 p-r-20">
-														Ariana Grande
-													</span>
-
-													<span class="fs-18 cl11">
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star"></i>
-														<i class="zmdi zmdi-star-half"></i>
+													{{ $r->nama }}
 													</span>
 												</div>
-
 												<p class="stext-102 cl6">
-													Quod autem in homine praestantissimum atque optimum est, id deseruit. Apud ceteros autem philosophos
+													{{ $r->review }}
 												</p>
 											</div>
+											<br><br><br><br>
+											@endforeach
 										</div>
 										
 										<!-- Add review -->
-										<form class="w-full">
+										<form action="{{url('tambahReviewProduk')}}" class="w-full" method="post" enctype="multipart/form-data">
+										{{ csrf_field() }}
 											<h5 class="mtext-108 cl2 p-b-7">
 												Add a review
 											</h5>
@@ -253,36 +246,24 @@
 												Your email address will not be published. Required fields are marked *
 											</p>
 
-											<div class="flex-w flex-m p-t-50 p-b-23">
-												<span class="stext-102 cl3 m-r-16">
-													Your Rating
-												</span>
-
-												<span class="wrap-rating fs-18 cl11 pointer">
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<i class="item-rating pointer zmdi zmdi-star-outline"></i>
-													<input class="dis-none" type="number" name="rating">
-												</span>
-											</div>
-
+											
+											<input type="hidden" name="idProduk" value="{{$q->idProduk}}">
 											<div class="row p-b-25">
-												<div class="col-12 p-b-5">
-													<label class="stext-102 cl3" for="review">Your review</label>
-													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review"></textarea>
-												</div>
-
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="name">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="nama" type="text" name="nama" autocomplete="off" required>
 												</div>
 
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="email">Email</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="email">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="email" name="email" autocomplete="off" required>
 												</div>
+												<div class="col-12 p-b-5">
+													<label class="stext-102 cl3" for="review">Your review</label>
+													<textarea class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10" id="review" name="review" autocomplete="off" required ></textarea>
+												</div>
+
+											
 											</div>
 
 											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">

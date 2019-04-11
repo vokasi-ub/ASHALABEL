@@ -15,15 +15,15 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="#1">Home</a>
 							</li>
 
 							<li>
-								<a href="product.html">Shop</a>
+								<a href="#2">Shop</a>
 							</li>
 							
 							<li>
-								<a href="about.html">About</a>
+								<a href="#3">About</a>
 							</li>
 						</ul>
 					</div>	
@@ -70,14 +70,14 @@
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="#1">Home</a>
 				</li>
 
 				<li>
-					<a href="product.html">Shop</a>
+					<a href="#2">Shop</a>
 				</li>
 				<li>
-					<a href="about.html">About</a>
+					<a href="#3">About</a>
 				</li>
 
 				

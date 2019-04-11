@@ -43,7 +43,7 @@
 	</header>
 
 	<!-- Slider -->
-	<section class="section-slide">
+	<section class="section-slide" id="1">
 		<div class="wrap-slick1">
 			<div class="slick1">
 				<div class="item-slick1" style="background-image: url(/frontend/images/Hijab/slider.jpeg);">
@@ -170,7 +170,7 @@
 
 
 	<!-- Product -->
-	<section class="bg0 p-t-23 p-b-140">
+	<section class="bg0 p-t-23 p-b-140" id="2">
 		<div class="container">
 			<div class="p-b-10">
 				<h3 class="ltext-103 cl5">
@@ -229,7 +229,7 @@
 	
 
 	<!-- Footer -->
-	<footer class="bg3 p-t-75 p-b-32">
+	<footer class="bg3 p-t-75 p-b-32" id="3">
 	 @include('frontend.main-footer')
 	</footer>
 
@@ -240,7 +240,16 @@
 		</span>
 	</div>
 
-	
+	<script>
+        function myFunction() {
+            var x = document.getElementById("myTopnav");
+            if (x.className === "topnav") {
+                x.className += " responsive";
+            } else {
+                x.className = "topnav";
+            }
+        }
+    </script>
 <!--===============================================================================================-->	
 	<script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->

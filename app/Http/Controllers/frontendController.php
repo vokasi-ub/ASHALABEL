@@ -26,12 +26,13 @@ class frontendController extends Controller
     }
 	public function detail($id)
 	{
+		$review = DB::select('select a.*,b.idProduk from review a join produk b on a.idProduk = b.idProduk where a.status != "pending"');
 		$idTransaksi = 'ID-'.date('his');
 		$tgl = date('d-m-Y');
 		$product = DB::select('select a.*,b.*,c.* from produk a join sub_kategori b on a.idSub = b.idSub
 										join kategori c on b.idKategori = c.idKategori
 										 where a.idProduk=?',[$id]);
-		return view('frontend.main-detail', compact('product','tgl','idTransaksi'));
+		return view('frontend.main-detail', compact('product','tgl','idTransaksi','review'));
 	}
 	
 }

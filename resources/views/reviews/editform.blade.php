@@ -22,31 +22,37 @@
 		<div class="box-body">
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-tags"></i> Nama </span>
-                <input title="nama"type="text" name="nama" autocomplete="off" required class="form-control" value="{{$row->nama}}">
+                <input title="nama"type="text" name="nama" autocomplete="off" required class="form-control" value="{{$row->nama}}"  readonly>
 				</div><br>	
 		</div>
 		<div class="box-body">
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-tags"></i> Email </span>
-                <input title="email"type="text" name="email" autocomplete="off" required class="form-control" value="{{$row->email}}">
+                <input title="email"type="text" name="email" autocomplete="off" required class="form-control" value="{{$row->email}}" readonly>
 				</div><br>	
 		</div>
 		<div class="box-body">
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-tags"></i> Review </span>
-                <input title="review"type="text" name="review" autocomplete="off" required class="form-control" value="{{$row->review}}">
+                <input title="review"type="text" name="review" autocomplete="off" required class="form-control" value="{{$row->review}}"readonly>
 				</div><br>	
 		</div>
 		<div class="box-body">
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-tags"></i> Status </span>
-                <input title="status"type="text" name="status" autocomplete="off" required class="form-control" value="{{$row->status}}">
+					<select name="status" id='status' class="form-control" required> 
+												<option value="">- Select Status Jomblo</option>
+												<option value="pending" {{ $row->status == 'pending' ? 'selected="selected"' : '' }} /> pending
+												<option value="active" {{ $row->status == 'active' ? 'selected="selected"' : '' }} /> active
+											  
+					</select>
+			   
 				</div><br>	
 		</div>
 		</div><div class="box-body">
 				<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-tags"></i> Tanggal </span>
-                <input title="tanggal"type="date" name="tanggal" autocomplete="off" required class="form-control" value="{{$row->tanggal}}">
+                <input title="tanggal"type="date" name="tanggal" autocomplete="off" required class="form-control" value="{{$row->tanggal}}"readonly>
 				</div><br>	
 		</div>
         <div class="box-footer">

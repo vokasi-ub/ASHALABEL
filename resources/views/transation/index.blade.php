@@ -19,19 +19,14 @@
         <div class="col-md-12">      
            <!-- /.box-body -->
             <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Data Transaksi</h3>
-              <hr>
-              <a href="{{url('tambahTrans')}}"><button class="btn btn-primary"><i class="fa fa-plus"></i> Add data </button></a>
             
-            </div
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                 <th> ID</th>
-				<th> ID Produk </th>
+				<th> Nama Produk </th>
                 <th> Nama </th> 
                 <th> Alamat </th> 
                 <th> Tanggal </th> 
@@ -46,15 +41,15 @@
                 @foreach($transaksi as $Atrans)
                 <tr>
                 <td>{{$no++}}</td>
-                <td>{{$Atrans->idProduk}}</td>
+                <td>{{$Atrans->produk->nama}}</td>
                 <td>{{$Atrans->nama}}</td>
                 <td>{{$Atrans->alamat}}</td>
                 <td>{{$Atrans->tanggal}}</td>
                 <td>{{$Atrans->jumlah}}</td>
-                <td>{{$Atrans->total_harga}}</td>
+                <td>Rp.{{number_format($Atrans->total_harga,0)}}</td>
                 <td><a href="editTrans/{{$Atrans->idTransaksi}}">
                       <i class="fa fa-edit"></i> Edit</a> 
-                |   <a href="hapusTrans/{{$Atrans->idTransaksi}}" onClick="return confirm('Are you sure you want to delete?')">
+                |   <a href="hapusTrans/{{$Atrans->id}}" onClick="return confirm('Are you sure you want to delete?')">
                       <i class="fa fa-trash-o"></i> Hapus</a>
                   </td>
                     </tr>

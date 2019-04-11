@@ -15,7 +15,8 @@ class CreateProdukTable extends Migration
     {
         Schema::create('produk', function (Blueprint $table) {
             $table->bigIncrements('idProduk');
-            $table->string('idSub',30);
+            $table->unsignedBigInteger('idSub');
+            $table->foreign('idSub')->references('idSub')->on('sub_kategori')->onDelete('cascade');
             $table->string('nama');
             $table->longText('deskripsi');
             $table->integer('stok');
@@ -32,5 +33,6 @@ class CreateProdukTable extends Migration
     public function down()
     {
         Schema::dropIfExists('produk');
+        $table->dropForeign('idSub');
     }
 }

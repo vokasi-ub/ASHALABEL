@@ -46,7 +46,7 @@
 	@foreach ($data as $q)
 	<section class="sec-product-detail bg0 p-t-65 p-b-60">
 		<div class="container">
-			<div class="bor10 m-t-50 p-t-43 p-b-40">
+			<div class="bor10 m-t-50 p-t-43 p-b-40" style="margin-top:-50px">
 				<!-- Tab01 -->
 				<div class="tab01">
 					<!-- Nav tabs -->
@@ -61,10 +61,16 @@
 						<!-- - -->
 						<div class="tab-pane fade show active" id="description" role="tabpanel">
 							<div class="how-pos2 p-lr-15-md">
-								<form class="w-full">
+								
 											@foreach ($data as $q)
-											<div class="row p-b-25">
+											<div class="row p-b-25" id="printableArea">
 											
+												<div class="col-sm-6 p-b-5">
+													<label class="stext-102 cl3" for="name">ID Transaksi</label>
+													
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="np" readonly value="{{$q->idTransaksi}}">
+													
+												</div>
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Nama Produk</label>
 													
@@ -75,14 +81,14 @@
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Harga Produk</label>
 												
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="harga" readonly value="{{$q->harga}}">
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" name="harga" readonly value="Rp.{{ number_format($q->harga,0)}}">
 												
 												</div>
 												
 			
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="name">Name</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="name" type="text" readonly name="name" autocomplete="off" value="{{$q->nama}}" required>
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="nama" type="text" readonly name="nama" autocomplete="off" value="{{$q->pelanggan}}" required>
 												</div>
 
 												<div class="col-sm-6 p-b-5">
@@ -103,14 +109,14 @@
 												
 												<div class="col-sm-6 p-b-5">
 													<label class="stext-102 cl3" for="email">Total Harga</label>
-													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="jumlah" value="{{$q->total_harga}}" readonly>
+													<input class="size-111 bor8 stext-102 cl2 p-lr-20" id="email" type="text" name="jumlah" value="{{number_format($q->total_harga,0)}}" readonly>
 												</div>
 											</div>
 
-											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
+											<button class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" onclick="printDiv('printableArea')">
 												Cetak
 											</button>
-										</form>
+										
 									@endforeach
 							</div>
 						</div>
@@ -136,6 +142,18 @@
 		</span>
 	</div>
 	
+	<script type="text/javascript">
+			function printDiv(divName) {
+			 var printContents = document.getElementById(divName).innerHTML;
+			 var originalContents = document.body.innerHTML;
+
+			 document.body.innerHTML = printContents;
+
+			 window.print();
+
+			 document.body.innerHTML = originalContents;
+		}
+	</script>
 <!--===============================================================================================-->	
 	<script src="{{ asset('frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
 <!--===============================================================================================-->

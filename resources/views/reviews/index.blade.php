@@ -22,7 +22,7 @@
             <div class="box-header">
               <h3 class="box-title">Data Reviews</h3>
               <hr>
-              <a href="{{url('tambahReview')}}"><button class="btn btn-primary"><i class="fa fa-plus"></i> Add data </button></a>
+              <a href="{{url('tambahdataReview')}}"><button class="btn btn-primary"><i class="fa fa-plus"></i> Add data </button></a>
             
             </div
             <!-- /.box-header -->

@@ -14,9 +14,10 @@ class CreateTransaksiTable extends Migration
     public function up()
     {
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->primary('idTransaksi');
-            $table->string('idTransaksi',40);
-            $table->string('idProduk',30);
+            $table->bigIncrements('id');
+            $table->string('idTransaksi',40)->unique();
+            $table->unsignedBigInteger('idProduk');
+            $table->foreign('idProduk')->references('idProduk')->on('produk')->onDelete('cascade');
             $table->string('nama');
             $table->longText('alamat');
             $table->timestamp('tanggal')->useCurrent();
@@ -33,5 +34,6 @@ class CreateTransaksiTable extends Migration
     public function down()
     {
         Schema::dropIfExists('transaksi');
+        $table->dropForeign('idProduk');
     }
 }
