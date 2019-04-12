@@ -6,7 +6,7 @@
           <img src="/tema/dist/img/user0.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Emalia Dewantari</p>
+          <p>Administrator</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -25,7 +25,7 @@
 		
         <li class="active">
           <a href="{{url('category')}}">
-            <i class="fa fa-dashboard"></i> <span>Kategori</span>
+            <i class="fa fa-server"></i> <span>Kategori</span>
            
           </a>
           
@@ -41,7 +41,7 @@
 		
 		<li class="active">
           <a href="{{url('product')}}">
-            <i class="fa fa-dashboard"></i> <span>Produk</span>
+            <i class="fa fa-cube"></i> <span>Produk</span>
             
           </a>
           
@@ -49,14 +49,14 @@
 		
 		<li class="active">
           <a href="{{url('transation')}}">
-            <i class="fa fa-dashboard"></i> <span>Rekap Transaksi</span>
+            <i class="fa fa-newspaper-o"></i> <span>Rekap Transaksi</span>
             
           </a>
         </li>
 		
 		<li class="active">
           <a href="{{url('reviews')}}">
-            <i class="fa fa-dashboard"></i> <span>Review</span>
+            <i class="fa fa-pencil-square-o"></i> <span>Review</span>
             
           </a>
         </li>

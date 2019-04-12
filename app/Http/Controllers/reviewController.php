@@ -18,10 +18,9 @@ class reviewController extends Controller
        //mendenifisikan kata kuci
        $cari = $request->cari;
        //mencari data di database
-       $review = DB::table('review')
-       ->where('tanggal','like',"%".$cari."%")
-       ->paginate();
+      
        //return data ke view
+	   $review = review::all();
        return view('reviews.index',['review' => $review]);
     }
 
@@ -29,8 +28,9 @@ class reviewController extends Controller
         return view('reviews.addform');
     }
     public function editform($id){
+		
+		$data = review::where('idReview',$id)->get();
 		$sts = review::all();
-        $data = DB::table('review')->where('idReview',$id)->get();
 		return view('reviews.editform', compact('data','sts'));
     }
     /**
@@ -53,13 +53,13 @@ class reviewController extends Controller
     {
 		$id = $request->idProduk;
 		
-        DB::table('review')->insert([
-			'idProduk'=>$request->idProduk,
-            'nama' => $request->nama,
-			'email' => $request->email,
-			'review' => $request->review,
-			'status' => 'pending'
-          ]);
+		$data = new review();
+        $data->idProduk = $request->idProduk;
+        $data->nama = $request->nama;
+        $data->email = $request->email;
+        $data->review = $request->review;
+        $data->status = 'pending';
+        $data->save();
 		  
          return redirect('main-detail/'.$id);
     }
@@ -95,9 +95,14 @@ class reviewController extends Controller
      */
     public function update(Request $request, $id)
     {
-        DB::table('review')->where('idReview',$id)->update([
-			'status' => $request->status
-               ]);		
+		$data = review::find($id);
+        $data->status = 'pending';
+        $data->save();
+		
+		
+       // DB::table('review')->where('idReview',$id)->update([
+	//	'status' => $request->status
+          //  ]);		
             return redirect('reviews');
     }
 
@@ -109,7 +114,10 @@ class reviewController extends Controller
      */
     public function destroy($id)
     {
-        DB::table('review')->where('idReview',$id)->delete();
+		$data = review::find($id);
+        $data->delete();
+		
+       // DB::table('review')->where('idReview',$id)->delete();
 		return redirect('reviews');
     }
 }

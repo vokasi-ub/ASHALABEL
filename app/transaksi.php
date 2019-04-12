@@ -15,6 +15,4 @@ class transaksi extends Model
         return $this->belongsTo(produk::class,'idProduk','idProduk');
     }
 
-    
-
 }

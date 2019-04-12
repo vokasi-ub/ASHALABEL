@@ -129,8 +129,11 @@ class transaksiController extends Controller
 	
 	public function nota($id) {
 		
-		$data = DB::select('select a.*,a.nama as pelanggan,b.* from transaksi a join produk b 
-							on a.idProduk= b.idProduk where a.idTransaksi=?',[$id]);
+		$data = transaksi::join('produk', 'transaksi.idProduk', '=','produk.idProduk')
+							->select('transaksi.*','transaksi.nama as pelanggan','produk.*')
+							->where('transaksi.idTransaksi', '=', [$id])
+							->get();
+		
 		return view('frontend.nota', compact('data'));
 	}
 	
